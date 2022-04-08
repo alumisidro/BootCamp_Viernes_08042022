@@ -4,9 +4,9 @@ import java.math.BigDecimal;
 
 public enum Tax {
 	
-	NORMAL(new BigDecimal("0.21")),
+	NORMAL(new BigDecimal(0.21)),
 	REDUCED(new BigDecimal(0.10)),
-	SUPERREDUCED(new BigDecimal(0.21));
+	SUPERREDUCED(new BigDecimal(0.04));
 
 	public BigDecimal percent;
 

@@ -3,9 +3,8 @@ package com.isidro.ejercicio2;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Stream;
+
 
 /**
  * @author isidr
@@ -17,6 +16,8 @@ public class App {
 	private static BigDecimal total = new BigDecimal("0");
 
 	public static void main(String[] args) {
+		
+		// Lista de la compra
 		List<Product> shoppingCart = List.of(
 			new Product("Clothes", new BigDecimal("15.90"), Tax.NORMAL),
 			new Product("Bread", new BigDecimal("1.5"), Tax.SUPERREDUCED),
@@ -26,17 +27,16 @@ public class App {
 			new Product("Whiskey", new BigDecimal("19.90"), Tax.NORMAL)
 		);
 
+		// Operaciones
 		calcularTotal(shoppingCart);
-
 		empiezanPorC(shoppingCart);
 
 	}
 
 	private static void calcularTotal(List<Product> shoppingCart) {
 		
-		
 		// Sumar precios
-		//TODO: Podría hacerse con reduce
+		//TODO: Podría hacerse con reduce? Porque al final un forEach
 		shoppingCart.stream().forEach(p -> {
 			total = total.add(p.getPrice().add(p.getPrice().multiply(p.getTax().getPercent())));
 		});
@@ -46,6 +46,20 @@ public class App {
 
 		// Mostrar precio por consola
 		System.out.println("Precio total con IVA: " + total);
+	
+		
+		/*
+		// Pruebas
+		long test1 = shoppingCart.stream()
+                .mapToLong(ob ->( ob.getPrice().multiply(ob.getTax().getPercent()).longValue() ) )
+                //.reduce(0, (a,b)->a+b);
+                .reduce(0, Long::sum);
+		System.out.println(test1);
+		*/
+		
+		//int sum = shoppingCart.stream()
+                //.reduce(0, (s,ob)->s+ob.getPrice().multiply(ob.getTax().getPercent()),BigInteger::sum);
+		
 	}
 
 	
@@ -65,7 +79,8 @@ public class App {
 
 			// Recorrer todo para mostrar por coma
 			// TODO: Habría que utilizar implode de PHP, que aquí quizá sea join
-			// para poner las comas en vez de esto
+			// como en JavaScript para poner las comas en vez de esto, pero lo
+			// buscaré más adelante porque ahora tengo que mudarme :(
 			.forEach(p -> {
 				System.out.print(p.getName() + ", ");
 			});
